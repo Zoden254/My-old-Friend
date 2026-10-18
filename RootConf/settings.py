@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 """
 Django settings for RootConf project.
 
@@ -143,7 +143,7 @@ TAILWIND_CLI_SRC_CSS = "static/css/input.css"
 TAILWIND_CLI_DIST_CSS = "css/style.css"
 
 TAILWIND_CLI_PATH = BASE_DIR / "tailwindcss.exe"
-=======
+
 """
 Django settings for RootConf project.
 
@@ -281,4 +281,4 @@ TAILWIND_CLI_SRC_CSS = "static/css/input.css"
 TAILWIND_CLI_DIST_CSS = "css/style.css"
 
 TAILWIND_CLI_PATH = BASE_DIR / "tailwindcss.exe"
->>>>>>> d049361272bdd2b52e1c6c1ef2b2363d9a736d19
+

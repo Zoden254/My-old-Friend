@@ -1,0 +1,158 @@
+<<<<<<< HEAD
+{% extends "master.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div id='nav'>{% include "partials/nav.html" %}</div>
+<div class="">
+{% if messages %}
+{% for message in messages %}
+<p class='font-bold m-3'>{{ message }}</p>
+{% endfor %}
+{% endif %}
+    <div id="partial-login" ></div>
+    <div id="vertical-nav"></div>
+{% if not user.is_authenticated %}
+<div class="relative min-h-screen bg-neutral-900 text-white font-sans flex flex-col justify-between overflow-hidden">
+  
+
+        
+  <!-- Background Image with Dark Vignette Overlay -->
+  <div class="absolute inset-0 z-0 rounded-4xl">
+    <img 
+      src="static/images/Gemini_Generated_Image_za5lc5za5lc5za5l.png" 
+      alt="Night background" 
+      class="w-full h-full object-cover object-center"
+    />
+    <!-- Dark Gradient Overlays for Readability -->
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-neutral-950/30"></div>
+    <div class="absolute inset-0 bg-neutral-950/40"></div>
+  </div>
+
+  
+  <!-- Hero Content -->
+  <main class="relative z-10 w-full max-w-4xl mx-auto px-6 py-20 text-center flex flex-col items-center">
+    <!-- Highlight Badge -->
+    <div class="inline-flex items-center space-x-2 border border-white backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-semibold uppercase tracking-widest mb-6">
+      
+      <span>Have you ever seperated with a friend without their contact?</span>
+    </div>
+
+    <!-- Main Headline -->
+    <h1 class="text-4xl sm:text-6xl text-shadow-white/30 text-shadow-lg font-extrabold tracking-tight text-white mb-6 leading-tight">
+      Spot Your Old Friends Online <span class="text-transparent bg-clip-text  bg-gradient-to-r from-gray-500 via-white to-gray-300">Reconnect</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-lg sm:text-xl text-neutral-300 max-w-2xl mb-10 leading-relaxed font-light">
+      Connect with friends and alumni from lately shared schools, church, workplace and even residence.
+    </p>
+
+    <!-- Primary CTAs for Unregistered Users -->
+    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+      <a hx-get="{% url "admin_app:signup" %}" hx-target="#partial-login" hx-swap="innerHTML" class="cursor-pointer animate-pulse px-8 py-4 bg-white hover:bg-black hover:text-white text-black font-semibold rounded-xl shadow-lg shadow-white/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-center">
+        Create Account
+      </a>
+      <a href="#explore" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl backdrop-blur-md border border-white/15 transition-all text-center">
+        Explore Map
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer / Trust Indicators -->
+  <footer class="relative z-10 w-full max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 border-t border-white/10">
+    <p>© 2026 My Old Friend. All rights reserved.</p>
+    <div class="flex space-x-6 mt-4 sm:mt-0">
+      <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+      <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      <a href="#" class="hover:text-white transition-colors">Support</a>
+    </div>
+  </footer>
+
+</div>
+{% endif %}
+
+
+
+</div>
+=======
+{% extends "master.html" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div id='nav'>{% include "partials/nav.html" %}</div>
+<div class="">
+{% if messages %}
+{% for message in messages %}
+<p class='font-bold m-3'>{{ message }}</p>
+{% endfor %}
+{% endif %}
+    <div id="partial-login" ></div>
+    <div id="vertical-nav"></div>
+{% if not user.is_authenticated %}
+<div class="relative min-h-screen bg-neutral-900 text-white font-sans flex flex-col justify-between overflow-hidden">
+  
+
+        
+  <!-- Background Image with Dark Vignette Overlay -->
+  <div class="absolute inset-0 z-0 rounded-4xl">
+    <img 
+      src="static/images/Gemini_Generated_Image_za5lc5za5lc5za5l.png" 
+      alt="Night background" 
+      class="w-full h-full object-cover object-center"
+    />
+    <!-- Dark Gradient Overlays for Readability -->
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/30 to-neutral-950/30"></div>
+    <div class="absolute inset-0 bg-neutral-950/40"></div>
+  </div>
+
+  
+  <!-- Hero Content -->
+  <main class="relative z-10 w-full max-w-4xl mx-auto px-6 py-20 text-center flex flex-col items-center">
+    <!-- Highlight Badge -->
+    <div class="inline-flex items-center space-x-2 border border-white backdrop-blur-md px-3 py-1 rounded-full text-white text-xs font-semibold uppercase tracking-widest mb-6">
+      
+      <span>Have you ever seperated with a friend without their contact?</span>
+    </div>
+
+    <!-- Main Headline -->
+    <h1 class="text-4xl sm:text-6xl text-shadow-white/30 text-shadow-lg font-extrabold tracking-tight text-white mb-6 leading-tight">
+      Spot Your Old Friends Online <span class="text-transparent bg-clip-text  bg-gradient-to-r from-gray-500 via-white to-gray-300">Reconnect</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-lg sm:text-xl text-neutral-300 max-w-2xl mb-10 leading-relaxed font-light">
+      Connect with friends and alumni from lately shared schools, church, workplace and even residence.
+    </p>
+
+    <!-- Primary CTAs for Unregistered Users -->
+    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+      <a hx-get="{% url "admin_app:signup" %}" hx-target="#partial-login" hx-swap="innerHTML" class="cursor-pointer animate-pulse px-8 py-4 bg-white hover:bg-black hover:text-white text-black font-semibold rounded-xl shadow-lg shadow-white/30 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-center">
+        Create Account
+      </a>
+      <a href="#explore" class="px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl backdrop-blur-md border border-white/15 transition-all text-center">
+        Explore Map
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer / Trust Indicators -->
+  <footer class="relative z-10 w-full max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-400 border-t border-white/10">
+    <p>© 2026 My Old Friend. All rights reserved.</p>
+    <div class="flex space-x-6 mt-4 sm:mt-0">
+      <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+      <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+      <a href="#" class="hover:text-white transition-colors">Support</a>
+    </div>
+  </footer>
+
+</div>
+{% endif %}
+
+
+
+</div>
+>>>>>>> d049361272bdd2b52e1c6c1ef2b2363d9a736d19
+{% endblock content %}

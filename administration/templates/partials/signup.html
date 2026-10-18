@@ -1,0 +1,89 @@
+<<<<<<< HEAD
+<div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in">
+
+    <form method="POST" action="{% url "admin_app:signup" %}" class="p-10 bg-white/30 shadow-md rounded-4xl m-10 w-fit flex-col justify-center items-center">
+        {% csrf_token %}
+        <h1 class="text-2xl font-bold text-center p-4">Sign Up</h1>
+        {% if messages %}
+        {% for message in messages %}
+        <h2 class="bg-red-400 text-center my-2 rounded outline-1 outline-red-600 p-2 text-red-700">{{ message }}</h2>
+        {% endfor %}
+        {% endif %}
+        
+        <div class="login-form flex-col justify-center items-center w-full">
+        <div class="[&>label]:font-bold [&>label]:mr-3 [&>label]:text-right [&>input]:bg-gray-100 [&>input]:p-2 [&>input]:rounded-2xl [&>input]:w-fit sm:grid sm:grid-cols-2 gap-y-2">
+        
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="eg. DenzelOti" autocomplete="one-time-code">
+        
+        <label for="f_name">First name</label>
+        <input name="f_name" type="text">
+        
+        <label for="l_name">Last name</label>
+        <input type="text" name="l_name">
+        
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="eg. user@gmail.com">
+        
+        <label for="password">Create Password</label>
+        <input type="password" name="password" autocomplete="one-time-code">
+
+        <label for="password2">Re-enter Password</label>
+        <input type="password" name="password2" autocomplete="one-time-code">
+        
+        </div>
+            <div class="buttons mt-4 text-center">
+                <button class="bg-black p-2 text-white rounded hover:bg-white hover:text-black hover:border m-3" hx-get="/" hx-target="body" hx-push-url="true">Cancel</button>
+                <button class="bg-blue-500 p-2 text-white rounded hover:bg-white hover:text-blue-500 hover:border m-3" type="submit">Sign Up</button>
+
+            </div>
+        </div>
+    </form>
+
+
+</div>
+=======
+<div id="modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-xs animate-fade-in">
+
+    <form method="POST" action="{% url "admin_app:signup" %}" class="p-10 bg-white/30 shadow-md rounded-4xl m-10 w-fit flex-col justify-center items-center">
+        {% csrf_token %}
+        <h1 class="text-2xl font-bold text-center p-4">Sign Up</h1>
+        {% if messages %}
+        {% for message in messages %}
+        <h2 class="bg-red-400 text-center my-2 rounded outline-1 outline-red-600 p-2 text-red-700">{{ message }}</h2>
+        {% endfor %}
+        {% endif %}
+        
+        <div class="login-form flex-col justify-center items-center w-full">
+        <div class="[&>label]:font-bold [&>label]:mr-3 [&>label]:text-right [&>input]:bg-gray-100 [&>input]:p-2 [&>input]:rounded-2xl [&>input]:w-fit sm:grid sm:grid-cols-2 gap-y-2">
+        
+        <label for="username">Username</label>
+        <input type="text" name="username" placeholder="eg. DenzelOti" autocomplete="one-time-code">
+        
+        <label for="f_name">First name</label>
+        <input name="f_name" type="text">
+        
+        <label for="l_name">Last name</label>
+        <input type="text" name="l_name">
+        
+        <label for="email">Email</label>
+        <input type="email" name="email" placeholder="eg. user@gmail.com">
+        
+        <label for="password">Create Password</label>
+        <input type="password" name="password" autocomplete="one-time-code">
+
+        <label for="password2">Re-enter Password</label>
+        <input type="password" name="password2" autocomplete="one-time-code">
+        
+        </div>
+            <div class="buttons mt-4 text-center">
+                <button class="bg-black p-2 text-white rounded hover:bg-white hover:text-black hover:border m-3" hx-get="/" hx-target="body" hx-push-url="true">Cancel</button>
+                <button class="bg-blue-500 p-2 text-white rounded hover:bg-white hover:text-blue-500 hover:border m-3" type="submit">Sign Up</button>
+
+            </div>
+        </div>
+    </form>
+
+
+</div>
+>>>>>>> d049361272bdd2b52e1c6c1ef2b2363d9a736d19

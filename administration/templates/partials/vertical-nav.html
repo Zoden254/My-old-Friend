@@ -1,0 +1,46 @@
+<<<<<<< HEAD
+<div id="v-nav-content" class="fixed z-50 inset-0 h-full bg-black/30 backdrop-blur-xl">
+<ul class="w-50 h-full bg-white p-4 [&>li]:my-4 [&>li]:active:font-bold">
+<div class="float-right" hx-on:click="document.getElementById('v-nav-content').remove()">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
+</div>
+
+    <h1 class="font-bold sm:text-2xl underline underline-offset-20 mb-6">My Old Friend</h1>
+    <div class="[&>a]:active:font-bold [&>a]:my-3 [&>a]:inline-block">
+    <a href="{% url "admin_app:home" %}">Home</a><br>
+    <a href="{% url "admin_app:friends-page" %}">Friends</a><br>
+    <a href="#">About</a href="#"><br>
+      
+    {% if user.is_authenticated %}
+    <a href="#">Messages</a href="#"><br>
+    </div class="mt-4">
+    <button class="bg-black text-white p-2 rounded mt-auto" hx-get="{% url "admin_app:logout" %}" hx-push-url="true" hx-target="#main-content">Logout</button>
+    {% endif %}
+</ul>
+    
+=======
+<div id="v-nav-content" class="fixed z-50 inset-0 h-full bg-black/30 backdrop-blur-xl">
+<ul class="w-50 h-full bg-white p-4 [&>li]:my-4 [&>li]:active:font-bold">
+<div class="float-right" hx-on:click="document.getElementById('v-nav-content').remove()">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m9.75 9.75 4.5 4.5m0-4.5-4.5 4.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
+</div>
+
+    <h1 class="font-bold sm:text-2xl underline underline-offset-20 mb-6">My Old Friend</h1>
+    <div class="[&>a]:active:font-bold [&>a]:my-3 [&>a]:inline-block">
+    <a href="{% url "admin_app:home" %}">Home</a><br>
+    <a href="{% url "admin_app:friends-page" %}">Friends</a><br>
+    <a href="#">About</a href="#"><br>
+      
+    {% if user.is_authenticated %}
+    <a href="#">Messages</a href="#"><br>
+    </div class="mt-4">
+    <button class="bg-black text-white p-2 rounded mt-auto" hx-get="{% url "admin_app:logout" %}" hx-push-url="true" hx-target="#main-content">Logout</button>
+    {% endif %}
+</ul>
+    
+>>>>>>> d049361272bdd2b52e1c6c1ef2b2363d9a736d19
+</div>

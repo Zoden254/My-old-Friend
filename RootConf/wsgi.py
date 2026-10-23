@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 """
 WSGI config for RootConf project.
 
@@ -15,7 +15,7 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RootConf.settings')
 
 application = get_wsgi_application()
-=======
+
 """
 WSGI config for RootConf project.
 
@@ -32,4 +32,3 @@ from django.core.wsgi import get_wsgi_application
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'RootConf.settings')
 
 application = get_wsgi_application()
->>>>>>> d049361272bdd2b52e1c6c1ef2b2363d9a736d19

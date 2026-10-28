@@ -1,0 +1,32 @@
+<div class="sm:m-3 flex flex-col items-center">
+
+    {% for feed in feeds %}
+    <div class=" p-2 border border-gray-200 sm:px-20 rounded-3xl m-5">
+        <div class="flex items-center">
+            <img src="{{ feed.author.profile_pic.url }}" class="size-10 m-3 rounded-full">
+            <div>
+                <p class="font-bold">{{ feed.author.first_name }} {{ feed.author.last_name }}</p>
+                <p class="text-sm opacity-50">{{feed.date}}</p>
+            </div>
+        </div>
+        {% if feed.picture %}
+        <div class="sm:w-100">
+            <p class="pb-2">{{feed.caption}}</p>
+
+            <img src="{{ feed.picture.url }}" class="size-fit rounded h-fit">
+        </div>
+    
+        {% endif %}
+        <div class="grid grid-cols-3 [&>button]:m-2 [&>button]:p-2 [&>button]:bg-gray-100 [&>button]:rounded-2xl">
+            <button>Reactions</button>
+            <button>Comments</button>
+            <button>Share</button>
+        </div>
+        <input type="text" name="comment" class="border border-gray-200 m-2 p-2 rounded-3xl" placeholder="Write something...">
+            
+    </div>
+    
+    {% endfor %}
+    <p class="text-sm opacity-50">You have viewed all suggested feeds.</P>
+    
+</div>

@@ -3,4 +3,4 @@ from .models import *
 # Register your models here.
 
 
-admin.site.register([User, RelatedField, ReunitedClass, Notification, FriendRequest])
+admin.site.register([User, RelatedField, ReunitedClass, Notification, FriendRequest, Feed])

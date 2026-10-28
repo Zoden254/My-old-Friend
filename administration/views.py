@@ -10,8 +10,8 @@ from . import models
 
 
 def home(request):
-    
-    return render(request, "home.html")
+    feeds = models.Feed.objects.all()
+    return render(request, "home.html", {'feeds': feeds})
 
 def nav(request):
             

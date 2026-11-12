@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from . import models
+
 # Create your views here.
 
 
@@ -34,13 +35,12 @@ def notification_box(request):
     return render(request, "partials/notifications-box.html", {'notifications': notifications})
 
 def login_view(request):
-    if 'HTTP_HX_REQUEST' in request.META:
-        return render(request, "partials/login.html")
-    
+    #if 'HTTP_HX_REQUEST' in request.META:
+    #    return render(request, "partials/login.html")
     
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
         user = authenticate(request, username=username, password=password)
         if user is not None:
@@ -118,3 +118,8 @@ def send_request(request, id):
 
 def profile_press(request):
     return render(request, "partials/profile-press.html")
+
+def profile(request, username):
+    user = get_object_or_404(models.User, username=username)
+    feeds = models.Feed.objects.filter(author=user)
+    return render(request, "profile.html", {'user' : user, 'feeds': feeds})

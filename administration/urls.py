@@ -15,4 +15,5 @@ urlpatterns = [
     path('accept-request/<int:id>/', views.accept_request, name="accept-request"),
     path('send-request/<int:id>/', views.send_request, name="send-request"),
     path('profile-press/', views.profile_press, name="profile-press"),
+    path('profile/<str:username>/', views.profile, name="profile"),
 ]   

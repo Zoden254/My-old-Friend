@@ -1,5 +1,5 @@
 <div class="sm:m-3 flex flex-col items-center">
-
+{% if feeds %}
     {% for feed in feeds %}
     <div class=" p-2 border border-gray-200 sm:px-20 rounded-3xl m-5 bg-white shadow-md">
         <div class="flex items-center">
@@ -46,5 +46,11 @@
     {% endfor %}
 
     <p class="text-sm opacity-50">You have viewed all feeds.</P>
-    
+
+{% else %}
+        <p class="text-sm opacity-50">No available feeds.</P>
+
+{% endif %}
+
+
 </div>

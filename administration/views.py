@@ -123,3 +123,16 @@ def profile(request, username):
     user = get_object_or_404(models.User, username=username)
     feeds = models.Feed.objects.filter(author=user)
     return render(request, "profile.html", {'user' : user, 'feeds': feeds})
+
+def settings(request):
+    return render(request, "settings.html")
+
+def edit_profile(request):
+
+    if request.method == "POST":
+        user = request.user
+        if "profile_image" in request.FILES:
+            user.profile_pic = request.FILES['profile_image']
+            user.save()
+            return redirect('admin_app:settings')
+    return render(request, "edit-profile.html")

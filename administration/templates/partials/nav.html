@@ -1,5 +1,5 @@
 
-<nav class="flex shadow-md shadow-blue-600/30 font-serif p-4 items-center bg-white font-semibold">
+<nav class="flex shadow-md shadow-blue-600/30 p-4 items-center bg-white font-semibold">
     <div class="sm:hidden mr-2" hx-get="{% url "admin_app:v-nav" %}" hx-target="#vertical-nav" hx-swap="innerHTML">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
         <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -46,7 +46,7 @@
         
         
         <div class="relative">
-        <img src="{{user.profile_pic.url}}" class="size-9 mr-4 rounded-full object-cover" hx-get="{% url "admin_app:profile-press" %}" hx-target="#profile-press" hx-swap="innerHTML">
+        <img src="{{request.user.profile_pic.url}}" class="size-9 mr-4 rounded-full object-cover" hx-get="{% url "admin_app:profile-press" %}" hx-target="#profile-press" hx-swap="innerHTML">
             <div id="profile-press"></div>
         </div>
         {% else %}

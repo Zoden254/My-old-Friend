@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
 </head>
-<body id="main-content" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-gray-100 font-serif">
+<body id="main-content" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="bg-gray-100 font-normal">
     {% block content %}{% endblock content %}
 </body>
 </html>

@@ -3,7 +3,7 @@
 {% block title %}Edit profile{% endblock title %}
 
 {% block content %}
-
+<!--
 <form method="POST" enctype="multipart/form-data" class="justify-center items-center flex">
     {% csrf_token %}
 <div class="bg-white flex flex-col m-3 p-3 w-180 justify-center items-center">
@@ -14,6 +14,279 @@
         onchange="if(this.files[0]){ const r = new FileReader(); r.onload = e => document.getElementById('avatar-preview').src = e.target.result; r.readAsDataURL(this.files[0]); }" required>
 
 </div>
+
+<div class="flex justify-between items-center m-4">
+    <label for="username">Username</label>
+    <span class="pl-3 pr-1 text-gray-500 select-none">@</span>
+    <input id="username" type="text" name="username" value="{{ request.user.username }}" class="border border-gray-200 rounded" required>
+</div>
+
+<div class="flex justify-between items-center m-4">
+    <label for="firstname">First name</label>
+    <input id="firstname" type="text" name="firstname" value="{{ request.user.first_name }}" class="border border-gray-200 rounded ml-5" required>
+</div>
+
     <button type="submit">Save</button>
 </form>
+
+
+-->
+
+<body class="bg-gray-100 text-gray-800 antialiased py-8 px-4 sm:px-6 lg:px-8">
+
+    <div class="max-w-3xl mx-auto">
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            <!-- Avatar Panel -->
+            <div class="bg-white rounded-lg border border-gray-200 p-6 flex flex-col items-center">
+                <img 
+                    id="avatar-preview"
+                    src="{{ request.user.profile_pic.url }}" 
+                    alt="User avatar" 
+                    class="w-36 h-36 rounded-full object-cover border-4 border-gray-100"
+                >
+                <label class="mt-4 cursor-pointer inline-flex items-center px-3.5 py-1.5 border border-gray-300 shadow-xs text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-blue-500 transition">
+                    <span>Change Photo</span>
+                    <input type="file" name="profile_image" id="profile_image" accept="image/*" class="sr-only"
+                    onchange="if(this.files[0]){ const r = new FileReader(); r.onload = e => document.getElementById('avatar-preview').src = e.target.result; r.readAsDataURL(this.files[0]); }" required>
+                </label>
+            </div>
+
+            <!-- User Info Panel -->
+            <div class="bg-white rounded-lg border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-100">
+                    <h2 class="text-lg font-medium text-gray-900">User info</h2>
+                </div>
+                <div class="p-6 space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-center gap-2 sm:gap-4">
+                        <label for="username" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            Username
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="text" 
+                                id="username" 
+                                name="username" 
+                                value="{{ request.user.username }}"
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                        
+                        <label for="firstname" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            First name
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="text" 
+                                id="firstname" 
+                                name="firstname" 
+                                value="{{ request.user.first_name }}"
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+
+                        <label for="lastname" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            Last name
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="text" 
+                                id="lastname" 
+                                name="lastname" 
+                                value="{{ request.user.first_name }}"
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                        
+                        <label for="country" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            Location
+                        </label>
+                        <div class="sm:col-span-9">
+                            <select 
+                                id="country" 
+                                name="country" 
+                                class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                                <option value="" selected disabled>Select country</option>
+                                {% for country in countries  %}
+                                <option
+                                    value = {{ country.code }}
+                                    {% if country.code == user_country %}selected{% endif %}
+                                >
+                                {{country.name}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-center gap-2 sm:gap-4">
+                        <label for="company" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            Company name
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="text" 
+                                id="company" 
+                                name="company" 
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-center gap-2 sm:gap-4">
+                        <label for="position" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            Position
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="text" 
+                                id="position" 
+                                name="position" 
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Info Panel -->
+            <div class="bg-white rounded-lg border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-100">
+                    <h2 class="text-lg font-medium text-gray-900">Contact info</h2>
+                </div>
+                <div class="p-6 space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-center gap-2 sm:gap-4">
+                        <label for="work_phone" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            Work number
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="tel" 
+                                id="work_phone" 
+                                name="work_phone" 
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-center gap-2 sm:gap-4">
+                        <label for="mobile_phone" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            Mobile number
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="tel" 
+                                id="mobile_phone" 
+                                name="mobile_phone" 
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-center gap-2 sm:gap-4">
+                        <label for="email" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            E-mail address
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                required
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-start gap-2 sm:gap-4">
+                        <label for="work_address" class="sm:col-span-3 text-sm text-gray-500 sm:text-right sm:pt-2">
+                            Work address
+                        </label>
+                        <div class="sm:col-span-9">
+                            <textarea 
+                                id="work_address" 
+                                name="work_address" 
+                                rows="3" 
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            ></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Security Panel -->
+            <div class="bg-white rounded-lg border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-100">
+                    <h2 class="text-lg font-medium text-gray-900">Security</h2>
+                </div>
+                <div class="p-6 space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-center gap-2 sm:gap-4">
+                        <label for="current_password" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            Current password
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="password" 
+                                id="current_password" 
+                                name="current_password" 
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-12 sm:items-center gap-2 sm:gap-4">
+                        <label for="new_password" class="sm:col-span-3 text-sm text-gray-500 sm:text-right">
+                            New password
+                        </label>
+                        <div class="sm:col-span-9">
+                            <input 
+                                type="password" 
+                                id="new_password" 
+                                name="new_password" 
+                                class="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm text-gray-900 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Checkbox -->
+                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4">
+                        <div class="sm:col-start-4 sm:col-span-9 flex items-center">
+                            <input 
+                                id="is_public" 
+                                name="is_public" 
+                                type="checkbox" 
+                                class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                            >
+                            <label for="is_public" class="ml-2 block text-sm text-gray-600">
+                                Make this account public
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 sm:gap-4 pt-2">
+                        <div class="sm:col-start-4 sm:col-span-9 flex items-center gap-3">
+                            <button 
+                                type="submit" 
+                                class="inline-flex justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition"
+                            >
+                                Submit
+                            </button>
+                            <button 
+                                type="reset" 
+                                class="inline-flex justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
 {% endblock content %}

@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
@@ -129,10 +130,33 @@ def settings(request):
 
 def edit_profile(request):
 
-    if request.method == "POST":
+    countries = []    
+
+    try:
+        response = requests.get("https://countriesnow.space/api/v0.1/countries/iso", timeout=5)
+        response.raise_for_status()
+        payload = response.json()
+
+        if not payload.get("error"):
+            countries = sorted(
+                [
+                    {"code" : item['Iso2'], "name": item["name"]}
+                    for item in payload.get("data", [])
+                ],
+                key=lambda x: x["name"]
+            )
+    except requests.RequestException:
+        countries = []
+
+    context = {
+        "countries" : countries,
+        "user_country" : getattr(request.user, "country", ""),
+    }
+    
+    if request.method == "POST":        
         user = request.user
         if "profile_image" in request.FILES:
             user.profile_pic = request.FILES['profile_image']
             user.save()
             return redirect('admin_app:settings')
-    return render(request, "edit-profile.html")
+    return render(request, "edit-profile.html", context)

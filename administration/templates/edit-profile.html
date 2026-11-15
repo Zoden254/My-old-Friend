@@ -3,34 +3,7 @@
 {% block title %}Edit profile{% endblock title %}
 
 {% block content %}
-<!--
-<form method="POST" enctype="multipart/form-data" class="justify-center items-center flex">
-    {% csrf_token %}
-<div class="bg-white flex flex-col m-3 p-3 w-180 justify-center items-center">
-    <div class="flex w-full items-center justify-between">
-        <img id="avatar-preview" src="{{ user.profile_pic.url }}" class="size-40 rounded-full shadow-md border-4 object-cover border-gray-200">
-        <label for="profile_image" class="bg-blue-100 p-2 hover:cursor-pointer rounded text-blue-800">Change</label>
-        <input type="file" name="profile_image" id="profile_image" accept="image/*" class="hidden" 
-        onchange="if(this.files[0]){ const r = new FileReader(); r.onload = e => document.getElementById('avatar-preview').src = e.target.result; r.readAsDataURL(this.files[0]); }" required>
 
-</div>
-
-<div class="flex justify-between items-center m-4">
-    <label for="username">Username</label>
-    <span class="pl-3 pr-1 text-gray-500 select-none">@</span>
-    <input id="username" type="text" name="username" value="{{ request.user.username }}" class="border border-gray-200 rounded" required>
-</div>
-
-<div class="flex justify-between items-center m-4">
-    <label for="firstname">First name</label>
-    <input id="firstname" type="text" name="firstname" value="{{ request.user.first_name }}" class="border border-gray-200 rounded ml-5" required>
-</div>
-
-    <button type="submit">Save</button>
-</form>
-
-
--->
 
 <body class="bg-gray-100 text-gray-800 antialiased py-8 px-4 sm:px-6 lg:px-8">
 

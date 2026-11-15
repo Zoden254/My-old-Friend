@@ -1,5 +1,16 @@
 <div class="sm:m-3 flex flex-col items-center">
 {% if feeds %}
+    <svg aria-hidden="true" class="sr-only">
+    <defs>
+        <linearGradient id="shiny-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FFF3B0" />   <!-- Top-left light gleam -->
+            <stop offset="25%" stop-color="#FACC15" />  <!-- Bright gold -->
+            <stop offset="53%" stop-color="#D97706" />  <!-- Deep metallic crease -->
+            <stop offset="75%" stop-color="#FDE047" />  <!-- Secondary reflection -->
+            <stop offset="100%" stop-color="#92400E" /> <!-- Bottom-right bronze edge -->
+        </linearGradient>
+    </defs>
+</svg>
     {% for feed in feeds %}
     <div class=" p-2 border border-gray-200 sm:px-20 rounded-3xl m-5 bg-white shadow-md">
         <div class="flex items-center">
@@ -11,17 +22,19 @@
         </div>
         
         <div class="sm:w-100">
-            <p class="pb-2">{{feed.caption}}</p>
+            <p class="pb-2 whitespace-pre-wrap">{{feed.caption}}</p>
             {% if feed.picture %}
             <img src="{{ feed.picture.url }}" class="size-fit rounded h-fit">
             {% endif %}
         </div>
     
-        
+        <!--Reaction, Comment & Share div-->    
         <div class="grid grid-cols-3 w-fit [&>a]:m-2 [&>a]:p-2 [&>a]: [&>a]:rounded-full">
-            <a href="#">
-                <svg role="img" fill="none" stroke-width="1.5" stroke="currentColor" class="size-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>React</title><path d="M11.04 19.32Q12 21.51 12 24q0-2.49.93-4.68.96-2.19 2.58-3.81t3.81-2.55Q21.51 12 24 12q-2.49 0-4.68-.93a12.3 12.3 0 0 1-3.81-2.58 12.3 12.3 0 0 1-2.58-3.81Q12 2.49 12 0q0 2.49-.96 4.68-.93 2.19-2.55 3.81a12.3 12.3 0 0 1-3.81 2.58Q2.49 12 0 12q2.49 0 4.68.96 2.19.93 3.81 2.55t2.55 3.81"/></svg>
-
+            
+            <a hx-post="{% url "feeds:react" feed.id %}" hx-target="#reaction-{{feed.id}}" hx-swap="innerHTML" id="reaction-{{feed.id}}" class="flex cursor-pointer flex-col justify-center items-center">
+                
+                {% include "partials/reaction-button.html" %}
+               
             </a>
 
             <a href="#" class="text-center">

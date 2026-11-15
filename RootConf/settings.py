@@ -185,6 +185,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.humanize',
     'administration',
+    'feeds',
     'rest_framework',
     'api',
     'django_tailwind_cli',

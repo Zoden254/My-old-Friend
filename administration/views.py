@@ -2,17 +2,27 @@ import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
+from django.db.models import Exists, Count, OuterRef, Value, BooleanField
 from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from . import models
+from feeds.models import *
 
 # Create your views here.
 
 
 def home(request):
-    feeds = models.Feed.objects.all()
+    if request.user.is_authenticated:
+        user_reacted = Exists(Reaction.objects.filter(feed=OuterRef("pk"), reactor=request.user))
+    else:
+        user_reacted = Value(False, output_field=BooleanField())
+
+    feeds = Feed.objects.annotate(
+    reaction_count=Count("reactions", distinct=True),
+    is_reacted=user_reacted,
+)
     return render(request, "home.html", {'feeds': feeds})
 
 def nav(request):
@@ -122,7 +132,7 @@ def profile_press(request):
 
 def profile(request, username):
     user = get_object_or_404(models.User, username=username)
-    feeds = models.Feed.objects.filter(author=user)
+    feeds = Feed.objects.filter(author=user)
     return render(request, "profile.html", {'user' : user, 'feeds': feeds})
 
 def settings(request):

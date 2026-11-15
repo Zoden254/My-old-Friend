@@ -59,12 +59,3 @@ class Notification(models.Model):
     def __str__(self):
         return self.content
 
-class Feed(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="feeds")
-    picture = models.ImageField(upload_to="static/images/feeds", blank=True, null=True)
-    caption = models.TextField(blank=True, null=True)
-    date = models.DateTimeField(auto_now_add=True)
-    scope = models.CharField(choices=[('friends', 'Friends'), ('public', 'Public')])
-
-    def __str__(self):
-        return f"{self.author.username}'s Post"

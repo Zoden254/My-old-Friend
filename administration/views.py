@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
-from . import models
+from . import models as md
 from feeds.models import *
 
 # Create your views here.
@@ -22,7 +22,7 @@ def home(request):
     feeds = Feed.objects.annotate(
     reaction_count=Count("reactions", distinct=True),
     is_reacted=user_reacted,
-)
+    )
     return render(request, "home.html", {'feeds': feeds})
 
 def nav(request):
@@ -78,8 +78,8 @@ def signup(request):
         password = request.POST['password']
         password2 = request.POST['password2']
 
-        if username not in models.User.objects.values_list('username', flat=True):
-            new_user = models.User.objects.create_user(username=username, email=email, password=password, first_name=firstname, last_name=lastname)
+        if username not in md.User.objects.values_list('username', flat=True):
+            new_user = md.User.objects.create_user(username=username, email=email, password=password, first_name=firstname, last_name=lastname)
         else:
             messages.error(request, "Username already used.")
             return redirect('admin_app:signup')
@@ -97,12 +97,12 @@ def v_nav(request):
 
 @login_required(login_url="admin_app:login")
 def friends(request):
-    suggestions = models.User.objects.exclude(id=request.user.id).exclude(id__in=request.user.friends.values_list('id', flat=True))
+    suggestions = md.User.objects.exclude(id=request.user.id).exclude(id__in=request.user.friends.values_list('id', flat=True))
     suggestions = suggestions.exclude(id__in=request.user.friendrequest_received.values_list('from_user__id', flat=True))
     suggestions = suggestions.exclude(id__in=request.user.friendrequest_sent.values_list('to_user__id', flat=True))
 
-    requests_received = models.User.objects.filter(id__in=request.user.friendrequest_received.values_list('from_user__id', flat=True))
-    requests_sent = models.User.objects.filter(id__in=request.user.friendrequest_sent.values_list('to_user__id', flat=True))
+    requests_received = md.User.objects.filter(id__in=request.user.friendrequest_received.values_list('from_user__id', flat=True))
+    requests_sent = md.User.objects.filter(id__in=request.user.friendrequest_sent.values_list('to_user__id', flat=True))
     
     friends = request.user.friends.all()
     context = {
@@ -115,15 +115,15 @@ def friends(request):
 
 @require_POST
 def accept_request(request, id):
-    new_friend = models.User.objects.get(id=id)
+    new_friend = md.User.objects.get(id=id)
     request.user.friends.add(new_friend)
     request.user.friendrequest_received.get(from_user=new_friend).delete()
     
     return HttpResponse("Accepted")
     
 def send_request(request, id):
-    to = models.User.objects.get(id=id)
-    request_sent = models.FriendRequest(from_user=request.user, to_user=to)
+    to = md.User.objects.get(id=id)
+    request_sent = md.FriendRequest(from_user=request.user, to_user=to)
     request_sent.save()
     return HttpResponse("<a class='m-2 bg-black/40 text-black rounded-3xl ml-auto p-2'>Request sent</a>")
 
@@ -131,8 +131,16 @@ def profile_press(request):
     return render(request, "partials/profile-press.html")
 
 def profile(request, username):
-    user = get_object_or_404(models.User, username=username)
+    user = get_object_or_404(md.User, username=username)
+    if request.user.is_authenticated:
+        user_reacted = Exists(Reaction.objects.filter(feed=OuterRef("pk"), reactor=request.user))
+    else:
+        user_reacted = Value(False, output_field=BooleanField())
     feeds = Feed.objects.filter(author=user)
+    feeds = feeds.annotate(
+    reaction_count=Count("reactions", distinct=True),
+    is_reacted=user_reacted,
+    )
     return render(request, "profile.html", {'user' : user, 'feeds': feeds})
 
 def settings(request):

@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    profile_pic = models.ImageField(upload_to='static/images', default='blank_profile.jpg')
+    profile_pic = models.ImageField(upload_to='profile-pics/', default='profile-pics/blank_profile.jpg')
     phone = models.CharField(max_length=15, blank=True, null=True)
     country = models.CharField(max_length=30, default="Kenya", blank=True, null=True)
     bio = models.TextField(blank=True, null=True)

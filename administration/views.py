@@ -21,6 +21,7 @@ def home(request):
 
     feeds = Feed.objects.annotate(
     reaction_count=Count("reactions", distinct=True),
+    comments_count=Count("comments", distinct=True),
     is_reacted=user_reacted,
     )
     return render(request, "home.html", {'feeds': feeds})
@@ -120,18 +121,26 @@ def accept_request(request, id):
     request.user.friendrequest_received.get(from_user=new_friend).delete()
     
     return HttpResponse("Accepted")
-    
+
+@require_POST
 def send_request(request, id):
     to = md.User.objects.get(id=id)
     request_sent = md.FriendRequest(from_user=request.user, to_user=to)
     request_sent.save()
     return HttpResponse("<a class='m-2 bg-black/40 text-black rounded-3xl ml-auto p-2'>Request sent</a>")
 
+@require_POST
+def cancel_request(request, id):
+    request = get_object_or_404(md.FriendRequest, from_user=request.user, to_user=User.objects.get(id=id))
+    request.delete()
+    return HttpResponse("<a class='m-2 bg-gray-500 text-white rounded-3xl ml-auto p-2'>Request Canceled</a>")
+
 def profile_press(request):
     return render(request, "partials/profile-press.html")
 
 def profile(request, username):
     user = get_object_or_404(md.User, username=username)
+    
     if request.user.is_authenticated:
         user_reacted = Exists(Reaction.objects.filter(feed=OuterRef("pk"), reactor=request.user))
     else:

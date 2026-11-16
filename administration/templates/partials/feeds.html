@@ -13,10 +13,12 @@
 </svg>
     {% for feed in feeds %}
     <div class=" p-2 border border-gray-200 sm:px-20 rounded-3xl m-5 bg-white shadow-md">
+        <a href="{% url "admin_app:profile" feed.author %}">
         <div class="flex items-center">
             <img src="{{ feed.author.profile_pic.url }}" class="size-10 m-3 rounded-full object-cover">
             <div>
                 <p class="font-bold">{{ feed.author.first_name }} {{ feed.author.last_name }}</p>
+            </a>
                 <p class="text-sm opacity-50">{{feed.date}}</p>
             </div>
         </div>
@@ -37,11 +39,17 @@
                
             </a>
 
-            <a href="#" class="text-center">
+            <a href="#" class="flex cursor-pointer flex-col justify-center items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
                 </svg>
 
+                {% if feed.comments_count %}
+                <p>{{ feed.comments_count }}</p>
+                {% else %}
+                <p>&nbsp;</p>
+               
+                {% endif %}
             </a>
             <a href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

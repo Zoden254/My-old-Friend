@@ -18,4 +18,5 @@ urlpatterns = [
     path('profile/<str:username>/', views.profile, name="profile"),
     path('settings/', views.settings, name="settings"),
     path('edit-profile/', views.edit_profile, name="edit-profile"),
+    path('cancel-request/<int:id>/', views.cancel_request, name="cancel-request"),
 ]   

@@ -187,3 +187,5 @@ def edit_profile(request):
             user.save()
             return redirect('admin_app:settings')
     return render(request, "edit-profile.html", context)
+
+

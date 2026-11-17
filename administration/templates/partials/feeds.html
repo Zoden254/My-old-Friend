@@ -39,18 +39,24 @@
                
             </a>
 
-            <a href="#" class="flex cursor-pointer flex-col justify-center items-center">
+            <button 
+                type="button"
+                class="flex cursor-pointer flex-col justify-center items-center"
+                hx-get="{% url "feeds:comments" feed.id %}"
+                hx-target="#comments"
+                hx-swap="innerHTML"
+                >
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.023 2.273 5.48.432.447.74 1.04.586 1.641a4.483 4.483 0 0 1-.923 1.785A5.969 5.969 0 0 0 6 21c1.282 0 2.47-.402 3.445-1.087.81.22 1.668.337 2.555.337Z" />
                 </svg>
 
                 {% if feed.comments_count %}
-                <p>{{ feed.comments_count }}</p>
+                <p id="comments-for-{{feed.id}}">{{ feed.comments_count }}</p>
                 {% else %}
-                <p>&nbsp;</p>
+                <p id="comments-for-{{feed.id}}">&nbsp;</p>
                
                 {% endif %}
-            </a>
+            </button>
             <a href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
@@ -58,17 +64,39 @@
 
             </a>
         </div>
-        <div class="flex items-center">
-        <input type="text" name="comment" class="border border-gray-200 m-2 p-2 rounded-3xl" placeholder="Write something...">
-        <svg role="img" class="size-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Comment</title><path d="M17.187 19.181L24 4.755 0 12.386l9.196 1.963.043 4.896 2.759-2.617-2.147-2.076 7.336 4.63z"/></svg>
-        </div>
+        
+        <form id="myForm" hx-on::after-request="this.reset()">
+            {% csrf_token %}
+            <div class="flex items-center">
+            <input type="text" name="comment" class="border border-gray-200 m-2 p-2 rounded-3xl" placeholder="Write something...">
+            <button type="submit" hx-post="{% url "feeds:post-comment" feed.id %}"
+                    hx-target="#comments-for-{{feed.id}}" hx-swap="innerHTML"
+                    class="cursor-pointer">
+                <svg role="img" class="size-6" fill="none" stroke-width="1.5" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Comment</title><path d="M17.187 19.181L24 4.755 0 12.386l9.196 1.963.043 4.896 2.759-2.617-2.147-2.076 7.336 4.63z"/></svg>
+            </button>
             
+            </div>
+        </form>    
     </div>
+
+    <div id="commentBox" class="hidden fixed md:w-[50vw] md:h-[80vh] mb-20 not-md:w-[90vw] not-md:h-[80vh] m-10 bg-gray-300 rounded-4xl z-50"
+    hx-on::after-swap="document.getElementById('commentBox').classList.toggle('hidden')">
+        <button type="button"
+                class="bg-red-500 relative ml-auto m-2 cursor-pointer"
+                onclick="document.getElementById('commentBox').classList.toggle('hidden')">
+            x
+        </button>
+        <div id="comments"></div>
+        
+        
+    </div> 
     
     {% endfor %}
 
     <p class="text-sm opacity-50">You have viewed all feeds.</P>
-
+    
+    
+    
 {% else %}
         <p class="text-sm opacity-50">No available feeds.</P>
 
@@ -76,3 +104,4 @@
 
 
 </div>
+
